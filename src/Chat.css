@@ -1,0 +1,97 @@
+.chat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.chat__header {
+    display: flex;
+    height: 58px;
+    background-color: #EDEDED;
+    border-bottom: 1px solid #DADADA;
+    align-items: center;
+    padding-left: 15px;
+}
+
+.chat__headerInfo{
+    padding-left: 15px;
+    flex: 1;
+}
+
+.chat__headerButtons{
+    min-width: 150px;
+    color: #919191;
+    align-items: flex-end;
+    padding-right: 25px;
+}
+
+.chat__headerButtons > .MuiSvgIcon-root {
+    margin-left: 20px;
+}
+
+.chat__headerButtonsRotate45 {
+    transform: rotate(45deg);
+}
+
+.chat__body {    
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    overflow: scroll;
+    background-color: #E5DDD5;
+}
+
+.chat__body .bg {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url(https://web.whatsapp.com/img/bg-chat-tile-light_686b98c9fdffef3f63127759e2057750.png) center center;
+    opacity: .1;
+    width: 100%;
+    height: 100%;
+}
+
+.chat__footer {
+    min-height: 62px;
+    width: 100%;
+    background-color: #F0F0F0;
+    border-top: 1px solid #DADADA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.chat__footerInput {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    margin-right: 25px;
+}
+
+.chat__footerInput > .MuiSvgIcon-root {
+    color: #919191;
+}
+
+.chat__footerInput > input {
+    margin: 5px 10px;
+    height: 20px;
+    flex: 1;
+    padding: 9px 12px 11px;
+    border: none;
+    border-radius: 20px;
+}
+
+.chat__footerInput > input:focus {
+    outline: none;
+}
+
+.chat__footer > .MuiSvgIcon-root {
+    color: #919191;
+    margin-left: 15px;
+    margin-right: 15px;
+}

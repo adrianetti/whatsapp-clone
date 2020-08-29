@@ -1,0 +1,33 @@
+.Avatar {
+    width: 49px !important;
+    height: 49px !important;
+}
+
+.sidebar__chat {
+    padding-right: 15px;
+    background-color: white;
+    height: 72px;
+    width: auto;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.sidebar__chat:hover {
+    background-color: #ebebeb;
+}
+
+.sidebar__chatAvatar {
+    padding: 0 15px 0 13px;
+}
+
+.sidebar__chatInfo {
+    width: 300px;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+
