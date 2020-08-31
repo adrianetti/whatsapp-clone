@@ -3,14 +3,21 @@ import './Sidebar.css'
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ChatIcon from '@material-ui/icons/Chat';
 import { Avatar, IconButton } from '@material-ui/core';
+import db from './firebase';
 
 function SidebarHeader() {
+
     const createChat = () => {
         const roomName = prompt("Enter a name for your new chat: ");
 
         if (roomName) {
             //do some database stuff
+            db.collection("rooms").add({
+                name: roomName,
+    
+            })    
         }
+
     }
 
     return (

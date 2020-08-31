@@ -9,10 +9,14 @@ const firebaseApp = firebase.initializeApp({
     messagingSenderId: "1010654677797",
     appId: "1:1010654677797:web:0dee7d8e53688fe57528cc",
     measurementId: "G-KSD79D6QL2"
-})
+});
 
 const db = firebaseApp.firestore();
 const auth = firebaseApp.auth();
 const storage = firebaseApp.storage();
 
-export { db, auth, storage };
+const provider = new firebase.auth.GoogleAuthProvider();
+
+export { auth, storage, provider };
+
+export default db;
