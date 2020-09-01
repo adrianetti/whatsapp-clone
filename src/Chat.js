@@ -18,6 +18,21 @@ function Chat() {
     const { roomId } = useParams();
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState([]);
+    const [headerInfo, setHeaderInfo] = useState({});
+
+    useEffect(() => {
+        if (roomId) {
+            db.collection("rooms").doc(roomId)
+            .onSnapshot(snapshot => (
+            setHeaderInfo(
+                {   roomName: snapshot.data().name,
+                    imageUrl: snapshot.data().imageUrl,
+
+                }
+                )
+            ))
+        }
+    }, [roomId])
 
     useEffect(() => {
         db.collection('messages').orderBy('timestamp', 'asc').onSnapshot(snapshot => {
@@ -42,10 +57,12 @@ function Chat() {
 
         <div className="chat">
             <div className="chat__header">
-                <Avatar/>
+                <Avatar src={headerInfo.imageUrl}/>
 
                 <div className="chat__headerInfo">
-                    <p>room-name</p>
+                    <p>
+                        {headerInfo.roomName}
+                    </p>
                 </div>
 
                 <div className="chat__headerButtons">
