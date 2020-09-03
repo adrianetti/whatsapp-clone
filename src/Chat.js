@@ -10,6 +10,7 @@ import db from  './firebase';
 import firebase from 'firebase';
 import FlipMove from 'react-flip-move';
 import { useParams } from 'react-router-dom';
+import { useStateValue } from './StateProvider';
 
 
 
@@ -19,6 +20,11 @@ function Chat() {
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState([]);
     const [headerInfo, setHeaderInfo] = useState({});
+
+    const [{ user }, dispatch] = useStateValue();
+
+    
+
 
     useEffect(() => {
         if (roomId) {
@@ -31,23 +37,38 @@ function Chat() {
                 }
                 )
             ))
+
+            db.collection("rooms").doc(roomId)
+            .collection("messages")
+            .orderBy("timestamp", "asc")
+            .onSnapshot(snapshot => {
+                setMessages(snapshot.docs.map(doc => (
+                    {
+                    message: doc.data().message,
+                    id: doc.id,
+                    name: doc.data().name,
+                    }
+                    ))
+                    )
+            })
         }
+
     }, [roomId])
 
     useEffect(() => {
-        db.collection('messages').orderBy('timestamp', 'asc').onSnapshot(snapshot => {
-          setMessages(snapshot.docs.map(doc => ({message: doc.data().message, id: doc.id })));
-        });
-    }, []);
-
+        const objDiv = document.querySelector(".chat__body");
+        objDiv.scrollTop = objDiv.scrollHeight;        
+    }, [messages])
 
     const sendMessage = (event) => {
         event.preventDefault();
 
-        db.collection('messages').add({
+        db.collection("rooms")
+        .doc(roomId)
+        .collection('messages').add({
             message: input,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-
+            name: user.displayName,
         })
 
         setInput("");
@@ -80,7 +101,7 @@ function Chat() {
                     <FlipMove>
                    {
                     messages.map(message =>
-                        <p className={`chat__message ${true &&
+                        <p className={`chat__message ${ user.displayName === message.name &&
                             'chat__receiver'}`}>
                                 {String(message.message)}
                         </p>

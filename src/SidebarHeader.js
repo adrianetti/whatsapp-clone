@@ -4,8 +4,12 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ChatIcon from '@material-ui/icons/Chat';
 import { Avatar, IconButton } from '@material-ui/core';
 import db from './firebase';
+import { useStateValue } from './StateProvider';
 
 function SidebarHeader() {
+    const [{ user }, dispatch] = useStateValue();
+
+    console.log(user.displayName)
 
     const createChat = () => {
         const roomName = prompt("Enter a name for your new chat: ");
@@ -14,6 +18,8 @@ function SidebarHeader() {
             //do some database stuff
             db.collection("rooms").add({
                 name: roomName,
+                imageUrl: user.photoURL,
+                
     
             })    
         }
@@ -22,7 +28,7 @@ function SidebarHeader() {
 
     return (
         <div className="sidebar__header">
-        <Avatar alt="mark" className="sidebar__headerAvatar" src="https://tentulogo.com/wp-content/uploads/Mark-Zuckerberg-FB.jpg"/>
+        <Avatar alt={user?.displayName} className="sidebar__headerAvatar" src={user?.photoURL}/>
             <div className="sidebar__headerIcons">
                 <IconButton onClick={createChat} className="sidebar__headerChatButton" disableFocusRipple={true} color="inherit">
                     <ChatIcon className="sidebar__headerChatIcon"/>                        
