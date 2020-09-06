@@ -2,4 +2,16 @@
 .login {    
     display: grid;
     place-items: center;
-  }
+    background-color: white;
+}
+
+.login > img {
+  max-width: 500px;
+  max-height: 500px;
+}
+
+.login > button {
+  background-color: #25D366 !important;
+  color: white;
+}
+

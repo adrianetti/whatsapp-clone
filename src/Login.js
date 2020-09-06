@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core'
 import { auth, provider } from './firebase'
 import { actionTypes } from './reducer';
 import { useStateValue } from './StateProvider';
+import image from './WhatsApp_Logo_1.png';
 
 function Login() {
     const [{}, dispatch] = useStateValue();
@@ -22,8 +23,7 @@ function Login() {
 
     return (
         <div className="login">
-            <h1>Welcome to the best wp-clon in the world</h1>
-
+            <img src={image} alt="whatsapp-logo"/>
             <Button onClick={signIn}>sign in with google</Button>
         </div>
     )

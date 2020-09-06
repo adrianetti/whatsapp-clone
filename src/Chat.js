@@ -37,24 +37,18 @@ function Chat() {
                 }
                 )
             ))
-
-            db.collection("rooms").doc(roomId)
+        
+        db.collection("rooms").doc(roomId)
             .collection("messages")
             .orderBy("timestamp", "asc")
-            .onSnapshot(snapshot => {
-                setMessages(snapshot.docs.map(doc => (
-                    {
-                    message: doc.data().message,
-                    id: doc.id,
-                    name: doc.data().name,
-                    }
-                    ))
-                    )
-            })
+            .onSnapshot((snapshot) =>
+                setMessages(snapshot.docs.map((doc) =>
+                doc.data()
+                ))
+            )
         }
-
     }, [roomId])
-
+ 
     useEffect(() => {
         const objDiv = document.querySelector(".chat__body");
         objDiv.scrollTop = objDiv.scrollHeight;        
@@ -103,7 +97,7 @@ function Chat() {
                     messages.map(message =>
                         <p className={`chat__message ${ user.displayName === message.name &&
                             'chat__receiver'}`}>
-                                {String(message.message)}
+                                {message.message}
                         </p>
                     )
                     }
