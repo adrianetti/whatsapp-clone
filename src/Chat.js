@@ -24,28 +24,37 @@ function Chat() {
     const [{ user }, dispatch] = useStateValue();
 
     
-
-
     useEffect(() => {
-        if (roomId) {
-            db.collection("rooms").doc(roomId)
+        console.log("room id has changed");
+        
+            const unsubscribe = db.collection("rooms").doc(roomId)
             .onSnapshot(snapshot => (
             setHeaderInfo(
                 {   roomName: snapshot.data().name,
                     imageUrl: snapshot.data().imageUrl,
-
                 }
                 )
-            ))
-        
-        db.collection("rooms").doc(roomId)
+            ));
+            
+            
+
+
+        return () => {
+            unsubscribe();
+        }
+    }, [roomId])
+
+    useEffect(() => {
+        const unsubscribe = db.collection("rooms").doc(roomId)
             .collection("messages")
             .orderBy("timestamp", "asc")
-            .onSnapshot((snapshot) =>
+            .onSnapshot((snapshot) =>(
                 setMessages(snapshot.docs.map((doc) =>
                 doc.data()
-                ))
+                )))
             )
+        return () => {
+            unsubscribe();
         }
     }, [roomId])
  
@@ -63,7 +72,7 @@ function Chat() {
             message: input,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             name: user.displayName,
-        })
+        });
 
         setInput("");
     }
@@ -101,7 +110,7 @@ function Chat() {
                         </p>
                     )
                     }
-                    </FlipMove> 
+                    </FlipMove>
                 </div>
                 
                 
